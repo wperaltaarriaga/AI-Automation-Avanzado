@@ -1,0 +1,261 @@
+{
+  "name": "Clase 1 - Agente de Triaje de Soporte",
+  "nodes": [
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Esta herramienta registra tickets de soporte técnico en Google Sheets.\n\nUSÁ esta herramienta cuando el usuario haya proporcionado como mínimo:\n- un medio de contacto;\n- un problema que pueda ser categorizado;\n- una descripción suficiente del inconveniente.\n\nAntes de ejecutar la herramienta:\n1. Identificá el problema principal reportado por el usuario.\n2. Determiná la categoría del problema.\n3. Clasificá la prioridad como Alta, Media o Baja.\n4. Generá un resumen breve y operativo del incidente.\n5. Definí una próxima acción recomendada.\n\nREGLAS DE PRIORIDAD:\n- ALTA: bloqueo total, impacto en facturación, caída del servicio, pérdida de datos, incidente de seguridad o cliente estratégico.\n- MEDIA: el problema afecta el trabajo del usuario, pero existe una alternativa temporal o no produce un bloqueo completo.\n- BAJA: consulta general, problema menor o solicitud sin impacto inmediato en la operación.\n\nCuando estén disponibles los datos mínimos, ejecutá esta herramienta exactamente UNA vez.\n\nNo inventes información faltante.\nSi el nombre o la empresa no fueron informados, utilizá \"No informado\".\n\nSi el mensaje contiene varios problemas, registrá como problema principal el de mayor impacto e incluí los demás en el resumen.\n\nNo uses esta herramienta para consultas comerciales, legales o administrativas que estén fuera del ámbito de soporte técnico.",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1ioflcxtwtaLFNaLIYTyYoF8IdHsC2VLM9g_JHmEapzw/edit?gid=96241165#gid=96241165",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 96241165,
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ioflcxtwtaLFNaLIYTyYoF8IdHsC2VLM9g_JHmEapzw/edit#gid=96241165"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $fromAI('Nombre', ``, 'string') }}",
+            "Contacto": "={{ $fromAI('Contacto', ``, 'string') }}",
+            "Empresa": "={{ $fromAI('Empresa', ``, 'string') }}",
+            "Categoría": "={{ $fromAI('Categor_a', ``, 'string') }}",
+            "Prioridad": "={{ $fromAI('Prioridad', ``, 'string') }}",
+            "Resumen": "={{ $fromAI('Resumen', ``, 'string') }}",
+            "Próxima acción": "={{ $fromAI('Pr_xima_acci_n', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Contacto",
+              "displayName": "Contacto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Empresa",
+              "displayName": "Empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Categoría",
+              "displayName": "Categoría",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Resumen",
+              "displayName": "Resumen",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Próxima acción",
+              "displayName": "Próxima acción",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        752,
+        528
+      ],
+      "id": "cd0bb855-5b39-48cc-b3c1-a9575d12f546",
+      "name": "Registrar_Ticket_Soporte",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ivn7uMgpYsCPMEYu",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "[ROL Y ÁMBITO]\nSos un Agente de Triaje de Soporte Técnico para una empresa SaaS B2B. Tu único ámbito es interpretar mensajes desestructurados de usuarios, identificar el problema principal, clasificar la prioridad y registrar un ticket limpio para que el equipo de soporte pueda actuar.\n\nNO tenés autorización para: prometer tiempos de resolución, cerrar tickets, otorgar compensaciones, modificar datos productivos, borrar registros, ejecutar acciones destructivas, brindar asesoramiento legal o comprometer decisiones comerciales.\n\n[OBJETIVO OPERATIVO]\nConvertir cada consulta entrante en un registro estructurado con: nombre del usuario, contacto, empresa, categoría del problema, prioridad, resumen del caso y próxima acción recomendada.\n\n[REGLAS DE USO DE HERRAMIENTAS]\n- Usá la herramienta \"Registrar_Ticket_Soporte\" SOLO cuando tengas datos mínimos suficientes: contacto del usuario, categoría del problema y descripción del inconveniente.\n- Si falta un dato clave, hacé una única pregunta clara antes de registrar.\n- No inventes información. Si un dato no fue provisto, dejalo vacío o marcá \"No informado\".\n- Clasificá la prioridad como Alta, Media o Baja. Alta aplica si hay bloqueo total, impacto en facturación, caída de servicio, pérdida de datos o cliente estratégico.\n- Si el mensaje mezcla varios problemas, priorizá el problema de mayor impacto y dejá el resto en notas.\n\n[PROTOCOLO DE ESCALAMIENTO / GUARDRAILS]\n- Si el usuario reporta pérdida de datos, caída generalizada, incidente de seguridad, cliente VIP o amenaza de baja, marcá prioridad Alta y recomendá revisión humana inmediata.\n- Si el usuario pide una acción destructiva o sensible, detené el ciclo y respondé: \"El caso requiere revisión humana antes de ejecutar acciones sensibles.\"\n- No envíes correos ni mensajes externos al cliente final. Solo registrá el ticket y generá un resumen operativo.\n\n[ESTILO]\n- Escribí en español rioplatense estándar, claro y profesional.\n- No uses lenguaje inclusivo con terminaciones en -e, -x o @.\n- Sé breve, específico y orientado a la operación.",
+          "maxIterations": 6,
+          "returnIntermediateSteps": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        560,
+        336
+      ],
+      "id": "9ef0c8b0-4e21-49f3-983e-81c4bb7e830a",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        368,
+        336
+      ],
+      "id": "0ec31642-5a85-47d4-8390-eb5520928d9d",
+      "name": "When chat message received",
+      "webhookId": "ea26a03d-e2c5-4335-aead-9db049f75ec6"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        432,
+        544
+      ],
+      "id": "cc68eab9-6a8f-45db-9a11-93b79dde50e3",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "wperaltaarriaga@gmail.com",
+        "subject": "Reporte de observabilidad - Agente de Triaje",
+        "emailType": "text",
+        "message": "=Resultado:\n{{ $json.output }}\n\nHerramientas usadas:\n{{ ($json.intermediateSteps || []).map(s => '- ' + s.action.tool + ': ' + JSON.stringify(s.action.toolInput)).join('\\n') || 'Ninguna' }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        928,
+        336
+      ],
+      "id": "6daa99f9-9a71-4009-849d-3c6895b3e7fb",
+      "name": "Send a message",
+      "webhookId": "70a494e0-8532-434d-bb77-cdba08844ff0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Jzyc7MQZZ2HtPYOS",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Registrar_Ticket_Soporte": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d5f0a8ec-78eb-4af0-bddd-9f0512a9b829",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e6a67a600aaefb575f08e17ebd51f964550a87c45717435b6f1054eb99b80849"
+  },
+  "nodeGroups": [],
+  "id": "RQGDo7nboRNsou4r",
+  "tags": []
+}
